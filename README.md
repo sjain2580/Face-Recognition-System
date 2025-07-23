@@ -24,27 +24,72 @@ The core of the system relies on pre-trained Haar Cascade classifiers for face d
 
 * **Pillow(PIL)**: For image handling, if needed for specific image operations.
 
-How It Works
-The system operates in two main phases:
+## Model used:
+The face recognition system employs a pipeline involving:
 
-**I. Training Phase**
-* **Image Collection**: A dataset of images for each individual to be recognized is collected. Each image is labeled with the corresponding individual's ID or name.
+* **Face Detection**: Haar Cascade Classifiers are used as the initial stage to rapidly detect frontal faces within an image or video frame. This is a machine learning-based approach where a cascade function is trained from a large set of positive (faces) and negative (non-faces) images.
 
-* **Face Detection and Cropping**: Haar Cascade classifiers are used to detect faces within these training images. Detected faces are then cropped and preprocessed.
+* **Feature Extraction & Training**: Once faces are detected, the system extracts features from these facial regions. The extracted features and corresponding labels (person IDs) are then fed into a chosen face recognition algorithm. Common algorithms used in OpenCV for this include:
 
-* **Model Training**: The preprocessed facial data, along with their labels, are used to train a face recognition model (e.g., OpenCV's LBPHFaceRecognizer or EigenFaceRecognizer/FisherFaceRecognizer). This model learns to associate facial patterns with specific individuals.
+* **Local Binary Patterns Histograms (LBPH) Face Recognizer**: This algorithm describes the local texture and shape of facial images. It's known for its robustness to illumination changes and its ability to handle small variations in face pose.
 
-* **Model Persistence**: The trained model is saved to disk (e.g., as a .yml file) to avoid retraining every time the system starts.
+The trained model learns to map specific facial patterns to unique individual identities.
 
-**II. Recognition & Attendance Phase**
-* **Live Video Feed**: The system captures a live video feed (e.g., from a webcam).
+## Data Collection & Preparation
+* **Image Acquisition**: A dataset of images is gathered for each individual intended to be recognized by the system. It's crucial to collect multiple images per person, ideally under varying conditions (different lighting, slight pose variations, expressions) to make the model more robust.
 
-* **Face Detection**: For each frame, Haar Cascade classifiers are used to detect faces.
+* **Labeling**: Each image is accurately labeled with a unique identifier corresponding to the individual in the image. These labels are critical for the supervised learning process.
 
-* **Face Recognition**: Detected faces are then fed into the pre-trained face recognition model, which attempts to identify the individual.
+* **Data Organization**: Images are typically organized into folders, with each folder representing a unique individual (e.g., dataset/0/, dataset/1/ for individuals with IDs 0, 1, etc.).
 
-* **Attendance Marking**: If a face is successfully recognized, the system logs the individual's presence, timestamping their attendance.
+## Data Analysis
+While not always a standalone "analysis" phase in simple systems, implicit analysis happens during:
+* **Quality Check**: Reviewing collected images for clarity, proper lighting, and consistent framing.
 
-* **User Interface**: Output can be displayed on screen, showing detected faces and recognized names, and logging messages can be printed to the console or saved to a file.
+* **Quantity Check**: Ensuring a sufficient number of images per person for effective training.
 
+* **Haar Cascade Tuning**: Initial experimentation with Haar Cascade parameters (scale factor, min neighbors) to optimize face detection performance on the specific image set.
 
+## Data Preprocessing
+Before training, raw images undergo preprocessing:
+* **Grayscale Conversion**: Color images are converted to grayscale to reduce dimensionality and focus on luminance features.
+
+* **Face Detection & Cropping**: Using Haar Cascade classifiers, faces are detected in each training image. The detected facial regions are then cropped to ensure only the face is fed to the recognition algorithm.
+
+* **Resizing & Normalization**: Cropped face images are resized to a uniform dimension and pixel values might be normalized to a standard range to ensure consistency for the recognition algorithm.
+
+## Training the Model
+* **Loading Data**: The preprocessed facial data (images/features) and their corresponding numerical labels are loaded.
+
+* **Model Initialization**: An instance of the chosen face recognition model (e.g., cv2.face.LBPHFaceRecognizer_create()) is initialized.
+
+* **Training**: The model.train() method is invoked, passing the preprocessed face data and their labels. During this phase, the model learns the unique patterns of each registered face.
+
+* **Model Saving**: After successful training, the trained model is saved to a file (e.g., trainer/trainer.yml). This file encapsulates the learned patterns and weights, allowing the system to load it directly for recognition without needing to retrain every time.
+
+## How to Run the Project
+To view this project locally on your machine:
+
+1.  **Clone the Repository:**
+    ```bash
+    git clone https://github.com/sjain2580/Face-Recognition-System.git
+    ```
+
+2.  **Navigate to the Project Directory:**
+    ```bash
+    cd Face-Recognition-System
+    ```
+
+3.  **Create a Virtual Environment (Recommended):**
+    ```bash
+    python -m venv venv
+    ```
+    * **Activate the virtual environment:**
+        * **Windows:** `.\venv\Scripts\activate`
+        * **macOS/Linux:** `source venv/bin/activate`
+
+4.  **Install Dependencies:**
+    Make sure you have all the necessary libraries installed.
+    ```bash
+    pip install -r requirements.txt
+    ```
