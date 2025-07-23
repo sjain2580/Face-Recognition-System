@@ -72,19 +72,19 @@ To view this project locally on your machine:
 
 1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/sjain2580/Face-Recognition-System.git
+    git clone https://github.com/sjain2580/Face-recognition-attendance-system.git
     ```
 
 2.  **Navigate to the Project Directory:**
     ```bash
-    cd Face-Recognition-System
+    cd Face-recognition-attendance-system
     ```
 
 3.  **Create a Virtual Environment (Recommended):**
     ```bash
     python -m venv venv
     ```
-    * **Activate the virtual environment:**
+   * **Activate the virtual environment:**
         * **Windows:** `.\venv\Scripts\activate`
         * **macOS/Linux:** `source venv/bin/activate`
 
@@ -93,3 +93,36 @@ To view this project locally on your machine:
     ```bash
     pip install -r requirements.txt
     ```
+
+5. **Prepare Training Data:**
+   Create a folder (e.g., dataset/) for your training images.
+   Inside dataset/, create subfolders for each individual, named with their ID (e.g., 0, 1, 2, or user_1, user_2).
+   ```bash
+    mkdir dataset
+    ```
+
+6. **Train the Face Recognition Model:**
+   Run the training script training.py:
+   ```bash
+    python training.py
+   ```
+
+7. **Run the Attendance System:**
+    Run the main attendance script testing.py:
+   ```bash
+    python testing.py
+   ```
+
+## Live Deployment
+Check the live app here - https://25866n7q-5000.inc1.devtunnels.ms/
+
+## Contributors
+**https://github.com/sjain2580**
+
+## Connect with Me
+Feel free to reach out if you have any questions or just want to connect!
+**[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sjain04/)**
+**[![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/sjain2580)**
+**[![Email](https://img.shields.io/badge/-Email-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:sjain040395@gmail.com)**
+
+---
