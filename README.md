@@ -1,4 +1,5 @@
-**Face Recognition Attendance System**
+# Face Recognition Attendance System
+![Face Recognition Attendance System](./Face-recognition.png)
 
 ## Overview
 This repository features a Face Recognition Attendance System, a Python-based application designed for automated attendance tracking. The system identifies individuals by their facial features and records their presence, providing an efficient and modern alternative to traditional attendance methods.
